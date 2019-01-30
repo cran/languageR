@@ -10,18 +10,18 @@ function(fmla,
     if (xlabel == "") xlabel = y[[3]][1]
     if (ylabel == "") ylabel = y[[2]]
 
-    require("lattice", quietly = TRUE)
+    requireNamespace("lattice", quietly = TRUE)
 
     # make the xyplot, this code is a simplified version of one of the
     # examples in the on-line help for xyplot
-    xyplot(fmla, 
+    lattice::xyplot(fmla, 
         data = data,
         xlab = xlabel, ylab = ylabel, ...,
         panel = function(x, y) {
-            panel.grid(h = -1, v = -1)  
+            lattice::panel.grid(h = -1, v = -1)  
             # only clearly visible on the screen, not on paper
-            panel.xyplot(x, y, col.symbol=symbolcolor)
-            panel.loess(x, y, span=span, col.line=linecolor)
+            lattice::panel.xyplot(x, y, col.symbol=symbolcolor)
+            lattice::panel.loess(x, y, span=span, col.line=linecolor)
         }
     )
 }

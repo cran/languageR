@@ -4,14 +4,14 @@ simulateQuasif.fnc = function (dat, with = TRUE, nruns = 100, nsub = NA,
     stop("this function is not working due to changes in lme4.
           an update using lmerTest is in progress")
 
-    require("MASS", quietly = TRUE)
-    require("lme4", quietly = TRUE)
+    requireNamespace("MASS", quietly = TRUE)
+    requireNamespace("lme4", quietly = TRUE)
     if (with) {
-        model.lmer = lmer(RT ~ SOA + (1 + SOA | Subject) + (1 | 
+        model.lmer = lme4::lmer(RT ~ SOA + (1 + SOA | Subject) + (1 | 
             Item), data = dat)
     }
     else {
-        model.lmer = lmer(RT ~ 1 + (1 + SOA | Subject) + (1 | 
+        model.lmer = lme4::lmer(RT ~ 1 + (1 + SOA | Subject) + (1 | 
             Item), data = dat)
     }
     res = matrix(0, nruns, 5)
@@ -20,19 +20,19 @@ simulateQuasif.fnc = function (dat, with = TRUE, nruns = 100, nsub = NA,
             nsub = nlevels(dat$Subject)
         if (is.na(nitem)) 
             nitem = nlevels(dat$Item)
-        su = mvrnorm(nsub, mu = c(0, 0), Sigma = cov(ranef(model.lmer)$Subject))
+        su = MASS::mvrnorm(nsub, mu = c(0, 0), Sigma = stats::cov(lme4::ranef(model.lmer)$Subject))
         subjects = data.frame(Subject = paste("S", 1:nsub, sep = ""), 
             rSubIntercept = su[, 1], rSubSOA = su[, 2])
         items = data.frame(Item = paste("W", 1:nitem, sep = ""), 
-            rItemIntercept = rnorm(nitem, 0, sd(unlist(ranef(model.lmer)$Item))))
-        intercept = fixef(model.lmer)[1]
+            rItemIntercept = stats::rnorm(nitem, 0, stats::sd(unlist(lme4::ranef(model.lmer)$Item))))
+        intercept = lme4::fixef(model.lmer)[1]
         if (with) 
-            slope = fixef(model.lmer)[2]
+            slope = lme4::fixef(model.lmer)[2]
         else slope = 0
         simdat = expand.grid(Subject = paste("S", 1:nsub, sep = ""), 
             Item = paste("W", 1:nitem, sep = ""), SOA = c("short", 
                 "long"))
-        simdat$SOA = relevel(simdat$SOA, ref = "long")
+        simdat$SOA = stats::relevel(simdat$SOA, ref = "long")
         itemsvec = as.character(simdat$Item)
         out1 = which(as.numeric(substr(itemsvec, 2, nchar(itemsvec))) <= 
             nitem/2 & simdat$SOA == "long")
@@ -47,9 +47,9 @@ simulateQuasif.fnc = function (dat, with = TRUE, nruns = 100, nsub = NA,
         simdat$rSubSOA = as.numeric(simdat$SOA == "short") * 
             simdat$rSubSOA
         simdat = merge(simdat, items[, 1:2], by.x = "Item", by.y = "Item")
-        simdat$error = rnorm(nrow(simdat), 0, sd(resid(model.lmer)))
+        simdat$error = stats::rnorm(nrow(simdat), 0, stats::sd(stats::resid(model.lmer)))
         simdat$RTsim = apply(simdat[, 4:8], 1, sum)
-        sim.lmer = lmer(RTsim ~ SOA + (1 + SOA | Subject) + (1 | 
+        sim.lmer = lme4::lmer(RTsim ~ SOA + (1 + SOA | Subject) + (1 | 
             Item), data = simdat)
         pvalues = pvals.fnc(sim.lmer, nsim = 10000)$fixed
         res[run, 1] = as.numeric(pvalues["SOAshort", 6])

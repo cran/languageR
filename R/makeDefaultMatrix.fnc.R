@@ -5,7 +5,7 @@ function(model, n = 100,
   control=NA) {
 
 
-   coefs = fixef(model)
+   coefs = lme4::fixef(model)
    ncoefs = length(coefs)
    X = model@pp$X
 
@@ -35,19 +35,19 @@ function(model, n = 100,
            } else {
              if (regexpr('^poly\\(', names(coefs[i])) > 0) {
                if (regexpr("1$", names(coefs[i])) > 0) {
-                 maxval = max(X[X[,i]<median(X[,i]),][,i])
+                 maxval = max(X[X[,i]<stats::median(X[,i]),][,i])
                  maxbelowmedianpos = which(X[,i] == maxval)[1]
                } 
                m[,i] = rep(X[maxbelowmedianpos,names(coefs[i])], length=n)
              } else {
                if (regexpr('^rcs\\(', names(coefs[i])) > 0) {
                  if (regexpr("[^']$", names(coefs[i]))>0) {
-                   maxval = max(X[X[,i]<median(X[,i]),][,i])
+                   maxval = max(X[X[,i]<stats::median(X[,i]),][,i])
                    maxbelowmedianpos = which(X[,i] == maxval)[1]
                  }
                  m[,i] = rep(X[maxbelowmedianpos,names(coefs[i])], length=n)
                } else {  
-                 m[,i] = rep(median(X[,names(coefs[i])]), length=n)
+                 m[,i] = rep(stats::median(X[,names(coefs[i])]), length=n)
                }
              }
            }

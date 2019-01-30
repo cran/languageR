@@ -34,7 +34,7 @@ function(intr=0) {
     }
   }
   nsubj = 10
-  ranefs = rnorm(10, 0, 3)
+  ranefs = stats::rnorm(10, 0, 3)
   dfr$Subject = rep("S1", nrow(dfr))
   dfr$Ranef = rep(ranefs[1], nrow(dfr)) 
   dfrCopy = dfr
@@ -45,7 +45,7 @@ function(intr=0) {
     dfr = rbind(dfr, tmp)
   }  
   dfr$Subject = as.factor(dfr$Subject)
-  dfr$Error = rnorm(nrow(dfr), 0, stdev)
+  dfr$Error = stats::rnorm(nrow(dfr), 0, stdev)
   dfr$Y = dfr$y+dfr$Ranef+dfr$Error
   return(dfr)
 }

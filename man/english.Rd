@@ -68,12 +68,11 @@
 }
 \source{ 
 Balota, D.A., Cortese, M.J. and Pilotti, M. (1999) \emph{
-Visual lexical decision latencies for 2906 words}. Available at
-\url{http://www.artsci.wustl.edu/~dbalota/lexical_decision.html}.
+Visual lexical decision latencies for 2906 words}. Available at http://www.artsci.wustl.edu/~dbalota/lexical_decision.html.
 
 Spieler, D. H. and Balota, D. A. (1998) \emph{
-Naming latencies for 2820 words},
-\url{http://www.artsci.wustl.edu/~dbalota/naming.html}.
+Naming latencies for 2820 words}, available at
+http://www.artsci.wustl.edu/~dbalota/naming.html.
 }
 \references{ 
 Balota, D., Cortese, M., Sergent-Marshall, S., Spieler, D. and Yap, M.

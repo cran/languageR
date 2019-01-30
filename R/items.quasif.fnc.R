@@ -8,7 +8,7 @@ function(dat) {
      means = tapply(dat$RTsim, dat$Item, mean)
   }
   items$MeanRT = as.vector(means)
-	model = lm(MeanRT ~ SOA, items)
+	model = stats::lm(MeanRT ~ SOA, items)
   p = summary(model)$coef["SOAshort", "Pr(>|t|)"]
   return(list(p = p, data = items, model = model))
 }

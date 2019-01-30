@@ -1,5 +1,16 @@
 import("methods")
 
+importFrom("graphics", "text", "mtext", "par", "persp", "contour", "plot", "matplot",
+	"image", "abline", "rect", "lines", "points", "pairs", "symbols", "polygon")
+
+importFrom("grDevices", "heat.colors")
+
+importFrom("stats", "acf", "anova", "coef", "cor", "cor.test", "cov",
+    "dnorm", "fitted", "formula", "lm", "median", "pf",
+    "plogis", "pnorm", "predict", "qnorm", "quantile",
+    "relevel", "resid", "rnorm", "sd", "t.test", "terms", "var")
+
+
 export(
        "acf.fnc",
        "aovlmer.fnc",
@@ -32,8 +43,6 @@ export(
        "xylowess.fnc",
        "yule.fnc",
        "zipf.fnc",
-       "head.growth",
-       "tail.growth",
        "plotLMER.fnc",
        "makeSplineData.fnc"
        )

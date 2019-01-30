@@ -44,11 +44,11 @@ function(pred, model, m, ylabel, fun, val, xlabel, ranefs, ...) {
   #  and later (else) handle the polynomial case
   ###############################################################################
 
-  fixefs = fixef(model) 
+  fixefs = lme4::fixef(model) 
   if (!is.na(ranefs[[1]])) {
      nm = as.vector(ranefs[[4]])
      if (nm %in% names(fixefs)) {
-       blup = ranef(model)[[ranefs[[1]]]][ranefs[[2]],ranefs[[3]]]
+       blup = lme4::ranef(model)[[ranefs[[1]]]][ranefs[[2]],ranefs[[3]]]
        fixefs[nm] = fixefs[nm]+blup
        fixefs = as.numeric(fixefs)
      } else 

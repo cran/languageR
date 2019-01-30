@@ -15,10 +15,10 @@ function(
   fixed = data.frame(Intercept = rep(1, nitem), 
     X = 1:nitem, Y = sample(1:nitem), Z = sample(1:nitem),
     Item = as.factor(paste(rep("Item", nitem), 1:nitem, sep="")),
-    RanefItem = rnorm(nitem, 0, stdevItem))
+    RanefItem = stats::rnorm(nitem, 0, stdevItem))
 
   Subject = as.factor(rep(paste("Subj", 1, sep=""), nitem))
-  RanefSubj = rnorm(nsubj, 0, stdevSubj)
+  RanefSubj = stats::rnorm(nsubj, 0, stdevSubj)
 
   # create the data for the first subject 
   Data = fixed
@@ -43,7 +43,7 @@ function(
   }
   dimnames(Data)[[1]] = 1:nrow(Data)
   # the error vector
-  Data$Error = rnorm(nitem*nsubj, 0, stdevError)
+  Data$Error = stats::rnorm(nitem*nsubj, 0, stdevError)
   # calculate RTs using matrix multiplication
   Data$RT = as.matrix(Data[,c(1:4,6,7,9)]) %*% c(beta, 1, 1, 1)
   # add effect of learning

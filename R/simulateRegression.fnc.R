@@ -10,7 +10,7 @@ function(
   stop("this function is not working due to changes in lme4.
         an update using lmerTest is in progress")
 
-  require("lme4", quietly = TRUE)
+  requireNamespace("lme4", quietly = TRUE)
 
   # some matrices for storing results
   pLmer = matrix(0, nruns, 4)         # p's for lmer correct
@@ -40,12 +40,12 @@ function(
     #   factor(paste(data2$Subject, data2$Item, sep="."))
     # correct lmer analysis
     if (learn) {
-      data2.lmer = lmer(RT~X+Y+Z+Trial+(1|Subject)+(1|Item), data=data2)
+      data2.lmer = lme4::lmer(RT~X+Y+Z+Trial+(1|Subject)+(1|Item), data=data2)
     } else {
-      data2.lmer = lmer(RT~X+Y+Z+(1|Subject)+(1|Item), data=data2)
+      data2.lmer = lme4::lmer(RT~X+Y+Z+(1|Subject)+(1|Item), data=data2)
     }
-    coef.ranefs = c(VarCorr(data2.lmer)[[1]]@factors$correlation@sd,
-                    VarCorr(data2.lmer)[[2]]@factors$correlation@sd,
+    coef.ranefs = c(lme4::VarCorr(data2.lmer)[[1]]@factors$correlation@sd,
+                    lme4::VarCorr(data2.lmer)[[2]]@factors$correlation@sd,
                     attr(summary(data2.lmer),"sigma"))
 		names(coef.ranefs) = c("Item", "Subject", "Residual")
     x = pvals.fnc(data2.lmer, withMCMC = FALSE)  # does not return mcmc object
@@ -61,11 +61,11 @@ function(
 
     # only subject
     if (learn) {
-      data2.lmerS = lmer(RT~X+Y+Z+Trial+(1|Subject), data=data2)
+      data2.lmerS = lme4::lmer(RT~X+Y+Z+Trial+(1|Subject), data=data2)
     } else {
-      data2.lmerS = lmer(RT~X+Y+Z+(1|Subject), data=data2)
+      data2.lmerS = lme4::lmer(RT~X+Y+Z+(1|Subject), data=data2)
     }
-    coef.ranefs = c(VarCorr(data2.lmerS)[[1]]@factors$correlation@sd,
+    coef.ranefs = c(lme4::VarCorr(data2.lmerS)[[1]]@factors$correlation@sd,
                     attr(summary(data2.lmerS),"sigma"))
 		names(coef.ranefs) = c("Subject", "Residual")
     x = pvals.fnc(data2.lmerS, withMCMC = FALSE)  # does not return mcmc object
@@ -93,15 +93,15 @@ function(
     #}
 
     if (learn) {
-      data2.lmList = lmList(RT~X+Y+Z+Trial|Subject, data=data2)
+      data2.lmList = lme4::lmList(RT~X+Y+Z+Trial|Subject, data=data2)
     } else {
-      data2.lmList = lmList(RT~X+Y+Z|Subject,data=data2)
+      data2.lmList = lme4::lmList(RT~X+Y+Z|Subject,data=data2)
     }
 
-    x = apply(coef(data2.lmList),2,t.test) 
+    x = apply(stats::coef(data2.lmList),2,stats::t.test) 
     pLmList[run,] = c(x[[1]]$p.value, x[[2]]$p.value, 
       x[[3]]$p.value, x[[4]]$p.value)
-    cLmList[run,]=as.numeric(apply(coef(data2.lmList),2,mean)[1:4])
+    cLmList[run,]=as.numeric(apply(stats::coef(data2.lmList),2,mean)[1:4])
 
     x = summary(item.fnc(data2))$coef
     pItemList[run,]=x[,4]

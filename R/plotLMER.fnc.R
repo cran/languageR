@@ -65,7 +65,7 @@ function(model,
    if ((length(grep("^glmer", as.character(model@call))) == 1) &
          (length(grep("binomial", as.character(model@call))) == 1)) {
        if (!is.function(fun)) {
-         fun = plogis
+         fun = stats::plogis
          if (verbose == TRUE) cat("log odds are back-transformed to probabilities\n")
        }
    }
@@ -130,7 +130,7 @@ function(model,
    if (is.na(pred)) {   # no predictor specified, so subplots for each predictor
                         # in the model
      predictors = colnames(model@frame)
-     ranefnames=unique(names(ranef(model)))
+     ranefnames=unique(names(lme4::ranef(model)))
      depvar = as.character(eval(model@call[2]$formula))[2]
      # predictors for random intercepts are also listed in the model frame, so
      # we have to restrict the predictors to those up to the first random effect name

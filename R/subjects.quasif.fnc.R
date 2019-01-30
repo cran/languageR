@@ -8,9 +8,9 @@ function(dat) {
    means = tapply(dat$RTsim, list(dat$Subject, dat$SOA), mean)
   }
   subjects$MeanRT = as.vector(t(means))
-	model = lm(MeanRT ~ SOA * Subject, data = subjects)
-  x = anova(model)
-  p = 1 - pf(x["SOA", "Mean Sq"]/x["SOA:Subject", "Mean Sq"], 
+	model = stats::lm(MeanRT ~ SOA * Subject, data = subjects)
+  x = stats::anova(model)
+  p = 1 - stats::pf(x["SOA", "Mean Sq"]/x["SOA:Subject", "Mean Sq"], 
 	           x["SOA", "Df"], x["SOA:Subject", "Df"])
   return(list(p = p, data = subjects, model = x))
 }

@@ -5,7 +5,7 @@ function(data) {
     item.dat = unique(data[ , c(2, 3, 4, 5)])
     item.dat = item.dat[order(item.dat$Item), ]
     item.dat$Means = itemMeans
-    item.dat.lm = lm(Means ~ X + Y + Z, data = item.dat)
+    item.dat.lm = stats::lm(Means ~ X + Y + Z, data = item.dat)
     return(item.dat.lm)
 }
 

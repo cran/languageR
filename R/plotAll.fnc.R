@@ -40,26 +40,26 @@ function(reslist, sameYrange=TRUE, ylabel, xlabel=NA, intrName=NA, pos="end",
          xlabl = xlabel[i]
        }
        if (!addToExistingPlot) {
-         plot(lst$X, lst$Y, ylim=ylimit, type="l", 
+         graphics::plot(lst$X, lst$Y, ylim=ylimit, type="l", 
            col = conditioningColors[1],
            lty = conditioningLines[1],
            xlab=xlabl, ylab=ylabel, ...)
        } else {
-         lines(lst$X, lst$Y,  col = conditioningColors[1],
+         graphics::lines(lst$X, lst$Y,  col = conditioningColors[1],
            lty = conditioningLines[1], ...)
        }
        if ("lower" %in% colnames(lst)) {
-         lines(lst$X, lst$lower, lty=2, col = conditioningColors[1], ...)
-         lines(lst$X, lst$upper, lty=2, col = conditioningColors[1], ...)
+         graphics::lines(lst$X, lst$lower, lty=2, col = conditioningColors[1], ...)
+         graphics::lines(lst$X, lst$upper, lty=2, col = conditioningColors[1], ...)
        }
        if (n>1) {
          if (!is.na(pos)) {
            ps = getPos.fnc(lst$Y, pos)
            epsilon = (max(ylimit)-min(ylimit))/40
-           text(lst$X[ps], lst$Y[ps]+epsilon, 
+           graphics::text(lst$X[ps], lst$Y[ps]+epsilon, 
              as.character(lst$Interaction[1]), cex=cexsize, pos=pstn, ...)  
          }
-         mtext(intrName, side=4, line=1, cex=cexsize, adj=0, ...)
+         graphics::mtext(intrName, side=4, line=1, cex=cexsize, adj=0, ...)
        }
      } else {  # a factor
        d = max(lst$X)-min(lst$X)
@@ -76,45 +76,45 @@ function(reslist, sameYrange=TRUE, ylabel, xlabel=NA, intrName=NA, pos="end",
            plot(lst$X, lst$Y, ylim=ylimit, type="b", pch=21, xlim=xlimit,
            xlab=xlabl, ylab=ylabel, xaxt="n", col=conditioningColors[1], ...)
          } else {
-           lines(lst$X, lst$Y, type="b", pch=21, col=conditioningColors[1], ...)
+           graphics::lines(lst$X, lst$Y, type="b", pch=21, col=conditioningColors[1], ...)
          }
        } else {
          if (!addToExistingPlot) {
            plot(lst$X, lst$Y, ylim=ylimit, type="p", pch=21, xlim=xlimit,
            xlab=xlabl, ylab=ylabel, xaxt="n", col=lineColor, ...)
          } else {
-           points(lst$X, lst$Y, pch=21, col=conditioningColors[1], ...)
+           graphics::points(lst$X, lst$Y, pch=21, col=conditioningColors[1], ...)
          }
        }
-       mtext(lst$Levels, at=lst$X, side=1, line=1, cex=cexsize, ...)
+       graphics::mtext(lst$Levels, at=lst$X, side=1, line=1, cex=cexsize, ...)
        if (n > 1) {
          if (!is.na(pos) & !is.na(conditioningVals[1][1])) {
            ps = getPos.fnc(lst$Y, pos)
            epsilon = (max(ylimit)-min(ylimit))/40
-           text(lst$X[ps], lst$Y[ps]+epsilon, 
+           graphics::text(lst$X[ps], lst$Y[ps]+epsilon, 
              labels=as.character(conditioningVals[1]), cex=cexsize, pos=pstn, ...)  
          }
        }
 
        if ("lower" %in% colnames(lst)) {
-         points(lst$X, lst$lower, lty=2,  pch="-", col=conditioningColors[1], ...)
-         points(lst$X, lst$upper, lty=2,  pch="-", col=conditioningColors[1], ...)
+         graphics::points(lst$X, lst$lower, lty=2,  pch="-", col=conditioningColors[1], ...)
+         graphics::points(lst$X, lst$upper, lty=2,  pch="-", col=conditioningColors[1], ...)
        }
      }
      if (n > 1) {
        for (j in 2:n) {
          lst = reslist[[i]][[j]]
          if (lst$Type[1]==FALSE) {
-           lines(lst$X, lst$Y, ylim=ylimit, type="l",  
+           graphics::lines(lst$X, lst$Y, ylim=ylimit, type="l",  
              col=conditioningColors[j], lty=conditioningLines[j], ...)
            if ("lower" %in% colnames(lst)) {
-             lines(lst$X, lst$lower, lty=2, col = conditioningColors[j], ...)
-             lines(lst$X, lst$upper, lty=2, col = conditioningColors[j], ...)
+             graphics::lines(lst$X, lst$lower, lty=2, col = conditioningColors[j], ...)
+             graphics::lines(lst$X, lst$upper, lty=2, col = conditioningColors[j], ...)
            }
            if (!is.na(pos[1]) & !is.na(conditioningVals[1][1])) {
              ps = getPos.fnc(lst$Y, pos)
              epsilon = (max(ylimit)-min(ylimit))/40
-             text(lst$X[ps], lst$Y[ps]+epsilon, 
+             graphics::text(lst$X[ps], lst$Y[ps]+epsilon, 
                labels=as.character(lst$Interaction[1]), cex=cexsize, pos=pstn, ...)  
            }
          } else {
@@ -127,23 +127,23 @@ function(reslist, sameYrange=TRUE, ylabel, xlabel=NA, intrName=NA, pos="end",
            }
 
            if (addlines) {
-             lines(lst$X, lst$Y, ylim=ylimit, type="b", pch=21, 
+             graphics::lines(lst$X, lst$Y, ylim=ylimit, type="b", pch=21, 
                col=conditioningColors[j], lty=conditioningLines[j], 
                xlab=xlabl, ylab=ylabel, ...)
            } else {
-             points(lst$X, lst$Y, ylim=ylimit, type="p", pch=21, 
+             graphics::points(lst$X, lst$Y, ylim=ylimit, type="p", pch=21, 
              xlab=xlabl, ylab=ylabel, col=conditioningColors[j], ...)
            }
-           mtext(intrName, side=4, line=1, cex=cexsize, adj=0, ...)
+           graphics::mtext(intrName, side=4, line=1, cex=cexsize, adj=0, ...)
            if (!is.na(pos) & !is.na(conditioningVals[1][1])) {
              ps = getPos.fnc(lst$Y, pos)
              epsilon = (max(ylimit)-min(ylimit))/40
-             text(lst$X[ps], lst$Y[ps]+epsilon, 
+             graphics::text(lst$X[ps], lst$Y[ps]+epsilon, 
                labels=as.character(conditioningVals[j]), cex=cexsize, pos=pstn, ...)  
            }
            if ("lower" %in% colnames(lst)) {
-             points(lst$X, lst$lower, lty=2,  pch="-", col=conditioningColors[j], ...)
-             points(lst$X, lst$upper, lty=2,  pch="-", col=conditioningColors[j], ...)
+             graphics::points(lst$X, lst$lower, lty=2,  pch="-", col=conditioningColors[j], ...)
+             graphics::points(lst$X, lst$upper, lty=2,  pch="-", col=conditioningColors[j], ...)
            }
          }
        }

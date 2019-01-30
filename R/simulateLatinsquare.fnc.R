@@ -3,13 +3,13 @@ simulateLatinsquare.fnc = function (dat, with = TRUE, trial = 0,
 {
     stop("this function is not working due to changes in lme4.
           an update using lmerTest is in progress")
-    require("lme4", quietly = TRUE)
+    requireNamespace("lme4", quietly = TRUE)
     if (with) {
-        model.lmer = lmer(RT ~ SOA + (1 | Subject) + (1 | Word), 
+        model.lmer = lme4::lmer(RT ~ SOA + (1 | Subject) + (1 | Word), 
             data = dat)
     }
     else {
-        model.lmer = lmer(RT ~ 1 + (1 | Subject) + (1 | Word), 
+        model.lmer = lme4::lmer(RT ~ 1 + (1 | Subject) + (1 | Word), 
             data = dat)
     }
     res = matrix(0, nruns, 3)
@@ -31,13 +31,13 @@ simulateLatinsquare.fnc = function (dat, with = TRUE, trial = 0,
     }
     for (run in 1:nruns) {
         subjects = data.frame(Subject = paste("S", 1:nsub, sep = ""), 
-            rSubIntercept = rnorm(nsub, 0, sd(unlist(ranef(model.lmer)$Subject))))
+            rSubIntercept = stats::rnorm(nsub, 0, stats::sd(unlist(lme4::ranef(model.lmer)$Subject))))
         items = data.frame(Word = paste("W", 1:nitem, sep = ""), 
-            rItemIntercept = rnorm(nitem, 0, sd(unlist(ranef(model.lmer)$Word))))
+            rItemIntercept = stats::rnorm(nitem, 0, stats::sd(unlist(lme4::ranef(model.lmer)$Word))))
         simdat = expand.grid(Subject = paste("S", 1:nsub, sep = ""), 
             Word = paste("W", 1:nitem, sep = ""), SOA = c("short", 
                 "medium", "long"))
-        simdat$SOA = relevel(simdat$SOA, ref = "long")
+        simdat$SOA = stats::relevel(simdat$SOA, ref = "long")
         itemsvec = as.character(simdat$Word)
         simdat$ItemCnt = as.numeric(substr(itemsvec, 2, nchar(itemsvec)))
         subjectsvec = as.character(simdat$Subject)
@@ -91,24 +91,24 @@ simulateLatinsquare.fnc = function (dat, with = TRUE, trial = 0,
             trials = c(trials, sample(1:n))
         }
         simdat$Trial = trials
-        simdat$population = fixef(model.lmer)["(Intercept)"]
+        simdat$population = lme4::fixef(model.lmer)["(Intercept)"]
         if (with) {
             simdat[simdat$SOA == "medium", ]$population = simdat[simdat$SOA == 
-                "medium", ]$population + fixef(model.lmer)["SOAmedium"]
+                "medium", ]$population + lme4::fixef(model.lmer)["SOAmedium"]
             simdat[simdat$SOA == "short", ]$population = simdat[simdat$SOA == 
-                "short", ]$population + fixef(model.lmer)["SOAshort"]
+                "short", ]$population + lme4::fixef(model.lmer)["SOAshort"]
         }
         simdat = merge(simdat, subjects, by.x = "Subject", by.y = "Subject")
         simdat = merge(simdat, items, by.x = "Word", by.y = "Word")
-        simdat$error = rnorm(nrow(simdat), 0, sd(resid(model.lmer)))
+        simdat$error = stats::rnorm(nrow(simdat), 0, stats::sd(stats::resid(model.lmer)))
         simdat$RTsim = apply(simdat[, 9:12], 1, sum)
         if (trial > 0) {
             simdat$RTsim = simdat$RTsim + trial * simdat$Trial
-            sim.lmer = lmer(RTsim ~ Trial + SOA + (1 | Subject) + 
+            sim.lmer = lme4::lmer(RTsim ~ Trial + SOA + (1 | Subject) + 
                 (1 | Word), data = simdat)
         }
         else {
-            sim.lmer = lmer(RTsim ~ SOA + (1 | Subject) + (1 | 
+            sim.lmer = lme4::lmer(RTsim ~ SOA + (1 | Subject) + (1 | 
                 Word), data = simdat)
         }
         # mcmc = mcmcsamp(sim.lmer, n = 10000)

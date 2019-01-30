@@ -7,7 +7,7 @@ the observed number of types, hapax legomena, dis legomena, tris legomena,
 and selected measures of lexical richness.
 }
 \usage{
-growth.fnc(text = alice, size = 646, nchunks = 40, chunks = 0)
+growth.fnc(text = languageR::alice, size = 646, nchunks = 40, chunks = 0)
 }
 \arguments{
   \item{text}{A vector of strings representing a text.}

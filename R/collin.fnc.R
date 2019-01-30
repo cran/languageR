@@ -6,7 +6,7 @@ function(data,colvector){
 # x = collin.func(rtdat, c(4,5,7))
 # code by Fiona Tweedie, Edinburgh Stats Department
 
-  std.fnc <- function(vec) (vec-mean(vec))/sqrt(var(vec))
+  std.fnc <- function(vec) (vec-mean(vec))/sqrt(stats::var(vec))
   scale.fnc <- function(vec) (vec/sqrt(t(vec)%*%vec))
   
 

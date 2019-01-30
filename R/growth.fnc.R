@@ -1,5 +1,5 @@
 `growth.fnc` <-
-function(text = alice, size = 646, nchunks = 40, chunks = 0) {
+function(text = languageR::alice, size = 646, nchunks = 40, chunks = 0) {
 
   
   if (is.numeric(chunks) & (chunks[1] == 0)) {
@@ -49,7 +49,7 @@ function(text = alice, size = 646, nchunks = 40, chunks = 0) {
      z = zipf.fnc(text[1:chunks[i]])
      herdan[i] = herdan.fnc(text[1:chunks[i]], 
         cumsum(rep(floor(length(text[1:chunks[i]])/40), 40)))$C
-     zipf[i] = coef(lm(log(z$frequency) ~ log(z$rank)))[2]
+     zipf[i] = stats::coef(stats::lm(log(z$frequency) ~ log(z$rank)))[2]
      lognormal[i] = mean(log(table(text[1:chunks[i]])))
      cat(".")
   }

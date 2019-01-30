@@ -9,10 +9,10 @@ function(dat) {
     subjects$MeanRT = as.vector(t(tapply(dat$RTsim, 
       list(dat$Subject, dat$List), mean)))
   }
-  subjects.lm = lm(MeanRT ~ Group/Subject + SOA*List, 
+  subjects.lm = stats::lm(MeanRT ~ Group/Subject + SOA*List, 
     data = subjects)
-  x = anova(subjects.lm)
-  p = 1 - pf(x["SOA", "Mean Sq"]/x["SOA:List", "Mean Sq"], 
+  x = stats::anova(subjects.lm)
+  p = 1 - stats::pf(x["SOA", "Mean Sq"]/x["SOA:List", "Mean Sq"], 
     x["SOA", "Df"], x["SOA:List", "Df"])
   return(list(p = p, data = dat, model = subjects.lm))
 }

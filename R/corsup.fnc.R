@@ -59,11 +59,11 @@ function(corres, bycol = TRUE, supp, plot = TRUE, font = 3, labels="", cex = 1.0
 		if (plot) {
 			res = csuppproj[,-1]
 			if (length(supName) == 1) {
-				text(res[1], res[2], supName, font=font,cex=cex)
+				graphics::text(res[1], res[2], supName, font=font,cex=cex)
 			} else {
 				if (length(labels) > 1) 
 					supName = labels
-				text(res[,1], res[,2], supName, font=font,cex=cex)
+				graphics::text(res[,1], res[,2], supName, font=font,cex=cex)
 			}
 		} else {
         	return(csuppproj[,-1])
@@ -135,11 +135,11 @@ function(corres, bycol = TRUE, supp, plot = TRUE, font = 3, labels="", cex = 1.0
 	   if (plot) {
 			res = rsuppproj[,-1]
 			if (length(supName) == 1) {
-				text(res[1], res[2], supName, font=font,cex=cex)
+				graphics::text(res[1], res[2], supName, font=font,cex=cex)
 			} else {
 				if (length(labels) > 1) 
 					supName = labels
-				text(res[,1], res[,2], supName, font=font,cex=cex)
+				graphics::text(res[,1], res[,2], supName, font=font,cex=cex)
 			}
 			# text(rsupproj[1,-1], rsupproj[2,-1], supName, font=3)
 	   } else {

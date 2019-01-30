@@ -10,6 +10,6 @@ function(text, chunks) {
     types[i] = length(unique(text[1:chunks[i]]))
   }
   return(list(growth = data.frame(tokens, types),
-              C = coef(lm(log(types)~log(tokens)))[2]))
+              C = stats::coef(stats::lm(log(types)~log(tokens)))[2]))
 }
 

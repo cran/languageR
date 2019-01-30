@@ -7,7 +7,7 @@ function(dat, group="Subject", time="Trial", x = "RT", plot=TRUE, ...) {
   for (s in levels(dat[,group])) {
     cnt = cnt+1
     tmp = dat[dat[, group] == s, ]
-    a = acf(tmp[,x], plot=FALSE)$acf[,,1]
+    a = stats::acf(tmp[,x], plot=FALSE)$acf[,,1]
     n = nrow(tmp)
     ci = -(1/n) + 2/sqrt(n)
     civec[cnt]=ci
@@ -22,13 +22,13 @@ function(dat, group="Subject", time="Trial", x = "RT", plot=TRUE, ...) {
   dfr = res
 
   if (plot==TRUE) {
-    xyplot(Acf~Lag|Subject,type="h", data=dfr, col.line="black", 
+    lattice::xyplot(Acf~Lag|Subject,type="h", data=dfr, col.line="black", 
     panel = function(...) {
-      panel.abline(h=civec[panel.number()],col.line="grey")
-      panel.abline(h=-civec[panel.number()],col.line="grey")
-      panel.xyplot(...)
+      lattice::panel.abline(h=civec[lattice::panel.number()],col.line="grey")
+      lattice::panel.abline(h=-civec[lattice::panel.number()],col.line="grey")
+      lattice::panel.xyplot(...)
     },
-    strip = strip.custom(bg="grey90"),
+    strip = lattice::strip.custom(bg="grey90"),
     par.strip.text=list(cex=0.8), ...)
   } else {
     return(dfr)
