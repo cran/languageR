@@ -78,7 +78,7 @@ their region and approximate date of origin, their general topic, and their genr
   }
 }
 \source{
-Data from Nouveau Corpus d'Amsterdam, \url{http://www.uni-stuttgart.de/lingrom/stein/corpus/}.
+Data from Nouveau Corpus d'Amsterdam, \url{https://www.ling.uni-stuttgart.de/institut/team/Stein-00011}.
 }
 \references{
 Ernestus, M., van Mulken, M. and Baayen, R. H. (2007)

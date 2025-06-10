@@ -19,7 +19,7 @@
 }
 \source{
 The text of Max Havelaar was obtained from the Project Gutenberg at
-at \url{http://www.gutenberg.org/wiki/Main_Page}
+at \url{http://www.gutenberg.org}
 }
 \examples{\dontrun{
 data(havelaar)

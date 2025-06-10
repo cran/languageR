@@ -7,7 +7,7 @@ function(data,colvector){
 # code by Fiona Tweedie, Edinburgh Stats Department
 
   std.fnc <- function(vec) (vec-mean(vec))/sqrt(stats::var(vec))
-  scale.fnc <- function(vec) (vec/sqrt(t(vec)%*%vec))
+  scale.fnc <- function(v) (v/(sqrt(t(v)%*%v)[1,1]))
   
 
 

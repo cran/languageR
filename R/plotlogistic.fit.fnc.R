@@ -2,7 +2,7 @@
 function(x, data, method = "cut", where = seq(0, 1, by=0.1), scalesize=NA, ...) {
   requireNamespace("lme4", quietly = TRUE)
   requireNamespace("rms", quietly = TRUE)
-  if (class(x)[1]=="mer") {
+  if (class(x)[1]=="glmerMod") {
     y=attr(x@frame, "terms")
     depvar = names(attr(stats::terms(y),"dataClasses")[attr(stats::terms(y),"response")])
     probs = stats::fitted(x)   # this used to be the fitted logit, but is now the fitted probability

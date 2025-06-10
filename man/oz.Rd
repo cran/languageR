@@ -11,7 +11,7 @@ punctuation marks removed.
   A character vector with 39513 words.
 }
 \source{
-  The project Gutenberg at \url{http://www.gutenberg.org/wiki/Main_Page}
+  The project Gutenberg at \url{http://www.gutenberg.org/}
 }
 \examples{\dontrun{
   data(oz)

@@ -43,6 +43,8 @@ export(
        "xylowess.fnc",
        "yule.fnc",
        "zipf.fnc",
+       "head.growth",
+       "tail.growth",
        "plotLMER.fnc",
        "makeSplineData.fnc"
        )

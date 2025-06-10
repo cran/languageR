@@ -22,9 +22,10 @@ xylowess.fnc(fmla, data,
 }
 \value{
   A trellis scatterplot matrix with smoothers is shown on the graphics device.
+  Code builds on xyplot from the lattice package.
 }
 \author{R. H. Baayen}
-\seealso{See also \code{\link{xyplot}}.}
+%\seealso{See also \code{\link[lattice]{xyplot}}.}
 \examples{\dontrun{
   data(weightRatings)
   xylowess.fnc(Rating ~ Frequency | Subject, data = weightRatings,

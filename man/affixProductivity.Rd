@@ -93,7 +93,7 @@ for 27 English affixes in 44 texts.
 }
 \source{
  Most texts were obtained from the Gutenberg Project 
- (\url{http://www.gutenberg.org/wiki/Main_Page}) and the Oxford Text
+ (\url{http://www.gutenberg.org}) and the Oxford Text
  Archive (http://ota.ahds.ac.uk/).
 }
 \references{

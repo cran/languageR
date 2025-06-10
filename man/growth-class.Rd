@@ -23,6 +23,6 @@ No methods defined with class "growth" in the signature.
 	See Also \code{growth.fnc}.
 }
 \examples{
-showClass("growth")
+showClass("corres")
 }
 \keyword{classes}

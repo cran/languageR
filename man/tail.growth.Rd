@@ -12,9 +12,6 @@
   \item{n}{An integer specifying the number of lines to be shown.}
 	\item{...}{other parameters to be passed through to plotting functions.}
 }
-\value{
-  The last n rows of the growth object are printed.
-}
 \author{R. H. Baayen}
 \seealso{See Also \code{\link{growth.fnc}}.}
 \examples{\dontrun{
@@ -22,5 +19,5 @@
   alice.growth = growth.fnc(alice)
   tail(alice.growth)
 }}
-\keyword{internal}
+\keyword{ models }
 %\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
